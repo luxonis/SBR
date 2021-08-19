@@ -1,10 +1,11 @@
-# sbr-util
-Utility to view and manipulate SBR binary images
+# SBR library
+Library to manage sections of binary data.
 
 ## Description
 SBR or Section Boot Record is a simple MBR like structure which organizes sections of data in an binary image
 
-Its long 512 bytes and resides at the beginning of the image.
+Its 512 long bytes and resides at the beginning of the image.
+
 ### Entries
 Entries are composed of following fields:
  - Name - name of the section
@@ -12,47 +13,22 @@ Entries are composed of following fields:
  - Offset - number of bytes from beggining of the image to the start of the section
  - Checksum - checksum useful for OTA updates of specific sections
  - Type - TBD: most likely to mark the type of data that resides inside the section
- - Flags - Bootable, ignore checksum, ...
+ - Flags - Bootable, ignore checksum, compression, ...
 
-## Usage
+## Utility
 
-```
-./sbr-util path/to/sbr/image
-```
+Check [sbr-util](examples/sbr-util/README.md) example, for an utility program
 
-### Example
-
-```
-./sbr-util my_app.dap 
-ID        BR                       
-VALID     Name                     Size(B)     Offset      Checksum      Type    Flags   
-true      __firmware               14980448    512         0x1C735FE6    0       1       
-true      pipeline                 868         15728640    0xA74C03E0    0       0       
-true      assets                   43          16777216    0x361B3B02    0       0       
-true      asset_storage            14488768    17825792    0x5B3280FC    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-false                              0           0           0x00000000    0       0       
-```
+To build, add the following CMake define: `-D SBR_BUILD_EXAMPLES=ON`
 
 ## Building
+
 ### Requirements
  - CMake > 3.2
- - C/C++ Compiler (MSVC, GCC, Clang) 
+ - C/C++ Compiler (MSVC, GCC, Clang)
 
 ### Steps
 ```
-mkdir -p build && cd build
-cmake ..
-cmake --build . --parallel
+cmake -H. -Bbuild
+cmake --build build
 ```

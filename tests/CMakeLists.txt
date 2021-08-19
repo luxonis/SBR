@@ -1,0 +1,4 @@
+# Add test
+add_executable(test_flags_compression test_flags_compression.cpp)
+target_link_libraries(test_flags_compression PRIVATE SBR)
+add_test(test_flags_compression test_flags_compression)
